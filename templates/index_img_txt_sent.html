@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image to Text Converter</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        label {
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+        input[type="file"] {
+            padding: 10px;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 12px;
+            background-color:rgb(0, 191, 255);
+            color: white;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e9f7fc;
+            border-radius: 5px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        }
+        .result pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: monospace, sans-serif;
+            font-size: 1em;
+            color: #333;
+        }
+        .error-message {
+            color: red;
+            font-size: 1.2em;
+            margin-top: 20px;
+        }
+
+        label {
+            font-size: 16px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        
+
+        h2.error {
+            color: red;
+        }
+
+
+    </style>
+</head>
+<body>
+
+    <h1>Image to Text Analysis</h1>
+
+    <div class="container">
+        <!-- Image Upload Form -->
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="image">Upload an Image for Text Extraction:</label>
+            <input type="file" name="image" id="image" accept="image/*" required>
+            <button type="submit">Upload and Extract Text</button>
+        </form>
+
+        <!-- Display extracted text -->
+        {% if text or stemmed_content %}
+            <div class="result">
+                <h2>Extracted Text:</h2>
+                <pre>{{ text }}</pre>
+            </div>
+
+
+            {% comment %} <div class="result">
+                <h2>Fake News Detection:</h2>
+                <pre>LR Prediction: {{ LR_output }}</pre>
+                <pre>DT Prediction: {{ DT_output }}</pre>
+                <pre>GB Prediction: {{ GB_output }}</pre>
+
+            </div> {% endcomment %}
+
+            {% comment %} <div class="result">
+                <h2>Processed Text:</h2>
+                <pre>{{ stemmed_content }}</pre>
+            </div> {% endcomment %}
+
+            <div class="result">
+                <h2>NER Text:</h2>
+                <pre>{{ Ner_text }}</pre>
+
+        
+            </div>
+
+            {% comment %} <!-- Display Topic Modeling Results -->
+            <h3>Topic Modeling Results:</h3>
+            <ul>
+                {% for topic in topic_model_result %}
+                    <li>{{ topic }}</li>
+                {% endfor %}
+            </ul> {% endcomment %}
+{% comment %} 
+            <p>Coherence Score: {{ coherence_score }}</p> {% endcomment %}
+
+            <!-- PyLDAvis Visualization -->
+            {% comment %} <div class="result">
+                <h2>Topic Model Visualization:</h2>
+                {{ visualization|safe }} <!-- Embed the visualization -->
+            </div> {% endcomment %}
+
+            <div class="result">
+                <h2>Text Summarizer:</h2>
+                <pre>{{ summarized_text }}</pre>
+            </div>   
+            
+    
+    
+        {% elif text == "" %}
+            <div class="error-message">
+                <p>No text could be extracted. Please try again with a different image.</p>
+            </div>
+    
+        {% endif %}
+
+        <button onclick="redirectToPage()">File Encode/Decode</button><br>
+        <br>
+        <button>    <a href="https://fraudental-account-detect.streamlit.app/">Fraudental Account</a>
+        </button>
+
+
+    </div>
+
+
+    <script>
+        function redirectToPage() {
+            window.location.href = "image_code"; // Replace 'another.html' with your file name
+        }
+    </script>
+
+</body>
+</html>

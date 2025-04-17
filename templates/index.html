@@ -1,0 +1,39 @@
+{% comment %} {% load static %} {% endcomment %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>File Encryption Tool</title>
+    <!-- Link to the external CSS file -->
+    <link rel="stylesheet" type="text/css" href="/static/css/styles.css">
+</head>
+<body>
+    <h1>File Encryption</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username"><br><br>
+    
+        <label for="choice">Choose an option:</label>
+        <select id="choice" name="choice">
+            <option value="1">Encode a string</option>
+            <option value="2">Decode a string</option>
+        </select><br><br>
+    
+
+    
+        <label for="file_upload">Upload a .txt file:</label>
+        <input type="file" id="file_upload" name="file_upload" accept=".txt"><br><br>
+    
+        <input type="submit" value="Submit">
+    </form>
+    
+    
+
+    {% if result %}
+        <h2>{{ mode }} string: {{ result }}</h2>
+    {% elif error %}
+        <h2 style="color: red;">{{ error }}</h2>
+    {% endif %}
+</body>
+</html>

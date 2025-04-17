@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile Data Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url('https://source.unsplash.com/1600x900/?abstract,nature') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            width: 350px;
+            backdrop-filter: blur(10px);
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.8);
+        }
+        button {
+            margin-top: 15px;
+            background: linear-gradient(45deg, #007bff, #00c6ff);
+            color: white;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: linear-gradient(45deg, #0056b3, #0088cc);
+        }
+        .result {
+            text-align: center;
+            font-size: 18px;
+            margin-top: 15px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 style="text-align: center; color: #333;">Profile Data Input</h2>
+        <form method="post">
+            {% csrf_token %}
+            <label>Profile Pic (1/0)</label>
+            <input type="number" name="profile_pic" min="0" max="1" required>
+
+            <label>Nums/Length Username</label>
+            <input type="number" name="nums_length_username" step="0.1" required>
+
+            <label>Fullname Words</label>
+            <input type="number" name="fullname_words" required>
+
+            <label>Nums/Length Fullname</label>
+            <input type="number" name="nums_length_fullname" step="0.1" required>
+
+            <label>Name == Username (1/0)</label>
+            <input type="number" name="name_equals_username" min="0" max="1" required>
+
+            <label>Description Length</label>
+            <input type="number" name="description_length" required>
+
+            <label>External URL (1/0)</label>
+            <input type="number" name="external_url" min="0" max="1" required>
+
+            <label>Private (1/0)</label>
+            <input type="number" name="private" min="0" max="1" required>
+
+            <label>#Posts</label>
+            <input type="number" name="num_posts" required>
+
+            <label>#Followers</label>
+            <input type="number" name="num_followers" required>
+
+            <label>#Follows</label>
+            <input type="number" name="num_follows" required>
+
+            <button type="submit">Submit</button>
+        </form>
+
+        {% if result %}
+            <div class="result">Prediction: {{ result }}</div>
+        {% endif %}
+    </div>
+</body>
+</html>
