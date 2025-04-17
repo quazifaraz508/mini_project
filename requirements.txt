@@ -1,0 +1,8 @@
+Django
+nltk
+transformers
+pytesseract
+Pillow
+pandas
+gensim
+pyLDAvis
