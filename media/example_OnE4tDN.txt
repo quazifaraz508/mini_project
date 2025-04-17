@@ -1,0 +1,1 @@
+this is the text file encryption tool model, it is usefull in security of files.
